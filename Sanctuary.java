@@ -105,11 +105,19 @@ public class Sanctuary {
      * Returns all animals that implement the Relocatable interface.
      * Hint: use instanceof.
      *
-     * TODO M8: Implement getRelocatableAnimals
+     * M8: Implement getRelocatableAnimals
      */
     public ArrayList<Animal> getRelocatableAnimals() {
-        // TODO M8: Filter using instanceof Relocatable
-        return new ArrayList<Animal>();
+        // M8: Filter using instanceof Relocatable
+        ArrayList<Animal> relocatableAnimals = new ArrayList<>();
+
+        for (Animal animal : animals) {
+            if (animal instanceof Relocatable) {
+                relocatableAnimals.add(animal);
+            }
+        }
+
+        return relocatableAnimals;
     }
 
     // M7: Implement getMostExpensiveAnimal
@@ -137,11 +145,31 @@ public class Sanctuary {
      * re-add the animal to this sanctuary and return false.
      * Otherwise, call relocateTo on the animal, then addAnimal on target.
      *
-     * TODO M8: Implement transferAnimal
+     * M8: Implement transferAnimal
      */
     public boolean transferAnimal(int animalId, Sanctuary target) {
-        // TODO M8: Remove animal, check Relocatable, relocate, add to target
-        return false;
+        // M8: Remove animal, check Relocatable, relocate, add to target
+        Animal animal = removeAnimal(animalId);
+
+        if (animal == null) {
+            return false;
+        }
+
+        if (!(animal instanceof Relocatable)) {
+            addAnimal(animal); 
+            return false;
+        }
+
+        Relocatable relocatable = (Relocatable) animal;
+        relocatable.relocateTo(target.getIsland());     
+
+        if (!target.addAnimal(animal)) {
+            relocatable.relocateTo(this.getIsland());
+            addAnimal(animal);
+            return false;
+        }
+
+        return true;
     }
 
     // M5: Implement printRoster - Prints each animal's toString, indented by 2
