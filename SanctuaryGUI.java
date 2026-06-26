@@ -70,9 +70,22 @@ public class SanctuaryGUI extends JFrame {
         statusLabel = new JLabel("Ready");
         add(statusLabel, BorderLayout.SOUTH);
 
-        // TODO M11: Add ActionListener to searchButton that calls runSearch()
+        // M11: Add ActionListener to searchButton that calls runSearch()
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                runSearch();
+            }
+        });
 
-        // TODO M11: Add KeyListener to nameField that calls runSearch() on keyReleased
+        // M11: Add KeyListener to nameField that calls runSearch() on keyReleased
+        nameField.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyReleased(KeyEvent e) {
+                    runSearch();
+                }
+        });
+
 
         setLocationRelativeTo(null);
     }
@@ -88,7 +101,7 @@ public class SanctuaryGUI extends JFrame {
      * Filters the sanctuary's animals based on the GUI controls and
      * displays matching results.
      *
-     * TODO M11: Implement runSearch
+     * M11: Implement runSearch
      *
      * Steps:
      * 1. Get text from nameField (trim, convert to lowercase)
@@ -103,7 +116,46 @@ public class SanctuaryGUI extends JFrame {
      * 6. Set statusLabel: "No matches", "1 result", or "N results"
      */
     private void runSearch() {
-        // TODO M11: Implement filtering and display
+        // M11: Implement filtering and display
+        String name = nameField.getText().trim().toLowerCase();
+        String selectedType = (String) typeCombo.getSelectedItem();
+        boolean injured = injuredCheck.isSelected();
+
+        ArrayList<Animal> results = new ArrayList<>();
+
+        for (Animal a : sanctuary.getAnimals()) {
+            boolean matches = true;
+
+            if (!name.isEmpty() && !a.getSpecies().toLowerCase().contains(name) && !a.getNickname().toLowerCase().contains(name)) {
+                matches = false;
+            }
+            if (!selectedType.equals("All") && !a.getType().equals(selectedType)) {
+                matches = false;
+            }
+            if (injured && !a.getHealthStatus().equals("Injured") && !a.getHealthStatus().equals("Critical")) {
+                matches = false;
+            }
+
+            if (matches) {
+                results.add(a);
+            }
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (Animal a : results) {
+            sb.append(a.toString()).append("\n");
+        }
+
+        resultArea.setText(sb.toString());
+
+        int count = results.size();
+        if (count == 0) {
+            statusLabel.setText("No matches");
+        } else if (count == 1) {
+            statusLabel.setText("1 result");
+        } else {
+            statusLabel.setText(count + " results");
+        }
     }
 
     /**
