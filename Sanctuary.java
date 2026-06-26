@@ -72,25 +72,33 @@ public class Sanctuary {
         return animals.size();
     }
 
-    /**
-     * Returns a new ArrayList containing only animals of the given type.
-     *
-     * TODO M7: Implement getAnimalsOfType
-     */
+    // M7: Implement getAnimalsOfType - Returns a new ArrayList containing only
+    // animals of the given type.
     public ArrayList<Animal> getAnimalsOfType(String type) {
-        // TODO M7: Filter by getType()
-        return new ArrayList<Animal>();
+        // M7: Filter by getType()
+        ArrayList<Animal> result = new ArrayList<>();
+
+        for (Animal animal : animals) {
+            if (animal.getType().equals(type)) {
+                result.add(animal);
+            }
+        }
+
+        return result;
     }
 
-    /**
-     * Returns the total daily food cost for all animals, rounded to 2 decimal
-     * places.
-     *
-     * TODO M7: Implement getDailyFoodBudget
-     */
+    // M7: Implement getDailyFoodBudget
+    // Returns the total daily food cost for all animals, rounded to 2 decimal
+    // places.
     public double getDailyFoodBudget() {
-        // TODO M7: Sum getDailyFoodCostTTD() for all animals
-        return 0.0;
+        // M7: Sum getDailyFoodCostTTD() for all animals
+        double total = 0.0;
+
+        for (Animal animal : animals) {
+            total += animal.getDailyFoodCostTTD();
+        }
+
+        return Math.round(total * 100.0) / 100.0;
     }
 
     /**
@@ -104,14 +112,23 @@ public class Sanctuary {
         return new ArrayList<Animal>();
     }
 
-    /**
-     * Returns the animal with the highest daily food cost, or null if empty.
-     *
-     * TODO M7: Implement getMostExpensiveAnimal
-     */
+    // M7: Implement getMostExpensiveAnimal
+    // Returns the animal with the highest daily food cost, or null if empty.
     public Animal getMostExpensiveAnimal() {
-        // TODO M7: Find max by getDailyFoodCostTTD()
-        return null;
+        // M7: Find max by getDailyFoodCostTTD()
+        if (animals.isEmpty()) {
+            return null;
+        }
+
+        Animal mostExpensive = animals.get(0);
+
+        for (Animal animal : animals) {
+            if (animal.getDailyFoodCostTTD() > mostExpensive.getDailyFoodCostTTD()) {
+                mostExpensive = animal;
+            }
+        }
+
+        return mostExpensive;
     }
 
     /**
