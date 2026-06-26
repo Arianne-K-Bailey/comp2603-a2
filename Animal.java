@@ -1,8 +1,7 @@
 import java.util.ArrayList;
 
-/**
- * Abstract base class for all animals in the conservation system.
- */
+//Abstract base class for all animals in the conservation system.
+
 public abstract class Animal {
     // M1: Declare static nextId field, starting at 1
     private static int nextId = 1;
@@ -10,21 +9,23 @@ public abstract class Animal {
     // M1: Declare private fields:
     // animalId (int), species (String), nickname (String),
     // island (String), weightKg (double), healthStatus (String)
-    private int animalId;   
+    private int animalId;
     private String species;
     private String nickname;
     private String island;
     private double weightKg;
     private String healthStatus;
 
-    // TODO M4: Declare private ArrayList<String> sightings field
+    // M4: Declare private ArrayList<String> sightings field
+    private ArrayList<String> sightings;
+
     /**
      * Constructor: assigns auto-incremented ID, validates all parameters.
      * Species, nickname, island must not be null or empty.
      * weightKg must be > 0.
      * healthStatus must be "Healthy", "Injured", or "Critical".
      *
-     * TODO M4: Initialize sightings list
+     * M4: Initialize sightings list
      */
 
     // M1: Implement constructor with validation
@@ -46,7 +47,7 @@ public abstract class Animal {
             throw new IllegalArgumentException("Weight must be greater than 0.");
         }
 
-        if (!healthStatus.equals("Healthy") 
+        if (!healthStatus.equals("Healthy")
                 && !healthStatus.equals("Injured")
                 && !healthStatus.equals("Critical")) {
             throw new IllegalArgumentException("Invalid health status.");
@@ -61,41 +62,44 @@ public abstract class Animal {
         this.weightKg = weightKg;
         this.healthStatus = healthStatus;
 
-        // TODO M4: Initialize sightings ArrayList
+        // M4: Initialize sightings ArrayList
+        this.sightings = new ArrayList<>();
     }
 
-    // M1: Write getters for all fields 
-    public int getAnimalId(){
+    // M1: Write getters for all fields
+    public int getAnimalId() {
         return this.animalId;
     }
-    
-    public String getSpecies(){
+
+    public String getSpecies() {
         return this.species;
     }
-    
-    public String getNickname(){
+
+    public String getNickname() {
         return this.nickname;
     }
 
-    public String getIsland(){
+    public String getIsland() {
         return this.island;
     }
-    
-    public double getWeightKg(){
+
+    public double getWeightKg() {
         return this.weightKg;
     }
-    
-    public String getHealthStatus(){
+
+    public String getHealthStatus() {
         return this.healthStatus;
     }
 
     // M2: Write setIsland(String island) method
-    public void setIsland(String island){
+    public void setIsland(String island) {
 
     }
 
-    // TODO M4: Write getSightings() getter that returns the ArrayList<String>
-
+    // M4: Write getSightings() getter that returns the ArrayList<String>
+    protected ArrayList<String> getSightings() {
+        return this.sightings;
+    }
 
     // M1: Implement updateHealth - Updates the health status after validation.
     public void updateHealth(String newStatus) {
@@ -115,14 +119,13 @@ public abstract class Animal {
     // M2: Declare as abstract - Returns the daily food cost in TTD. Varies by subclass.
     public abstract double getDailyFoodCostTTD();
 
-
     // M1: Implement toString - String.format: "#%03d %s '%s' (%s) [%s] %.2f kg - %s"
-    //  Example: "#001 Scarlet Ibis 'Ruby' (Trinidad) [Bird] 0.35 kg - Healthy"
+    // Example: "#001 Scarlet Ibis 'Ruby' (Trinidad) [Bird] 0.35 kg - Healthy"
     @Override
     public String toString() {
         // M1: Return formatted string
-        return String.format("#%03d %s '%s' (%s) [%s] %.2f kg - %s", 
-            getAnimalId(), getSpecies(), getNickname(), getIsland(), getType(), getWeightKg(), getHealthStatus());
+        return String.format("#%03d %s '%s' (%s) [%s] %.2f kg - %s",
+                getAnimalId(), getSpecies(), getNickname(), getIsland(), getType(), getWeightKg(), getHealthStatus());
     }
 
     /**
