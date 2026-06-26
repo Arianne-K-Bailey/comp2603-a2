@@ -128,23 +128,26 @@ public abstract class Animal {
                 getAnimalId(), getSpecies(), getNickname(), getIsland(), getType(), getWeightKg(), getHealthStatus());
     }
 
-    /**
-     * Two animals are equal if they have the same animalId.
-     *
-     * TODO M5: Implement equals
-     */
+    // M5: Implement equals - Two animals are equal if they have the same animalId.
     @Override
     public boolean equals(Object obj) {
-        // TODO M5: Implement equality by animalId
-        return false;
+        // M5: Implement equality by animalId
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Animal other = (Animal) obj;
+        return animalId == other.animalId;
     }
 
-    /**
-     * TODO M5: Implement hashCode based on animalId
-     */
+    // M5: Implement hashCode based on animalId
     @Override
     public int hashCode() {
-        // TODO M5: Return hash based on animalId
-        return 0;
+        // M5: Return hash based on animalId
+        return Integer.hashCode(animalId);
     }
 }
