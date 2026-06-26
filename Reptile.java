@@ -1,9 +1,6 @@
-/**
- * Reptile subclass. Implements Trackable but NOT Relocatable.
- *
- * TODO M3: Make this class implement Trackable
- */
-public class Reptile extends Animal /* TODO M3: implements Trackable */ {
+//Reptile subclass. Implements Trackable but NOT Relocatable.
+
+public class Reptile extends Animal implements Trackable {
     // M2: Declare private fields: isVenomous (boolean), lengthCm (double)
     private boolean isVenomous;
     private double lengthCm;

@@ -1,18 +1,11 @@
-/**
- * Bird subclass. Implements Trackable and Relocatable.
- *
- * TODO M3: Make this class implement Trackable and Relocatable
- */
-public class Bird extends Animal /* TODO M3: implements Trackable, Relocatable */ {
+//Bird subclass. Implements Trackable and Relocatable.
+
+public class Bird extends Animal implements Trackable, Relocatable {
     // M2: Declare private fields
     private double wingspanCm;
     private boolean canFly;
 
-    /**
-     * Constructor.
-     * TODO M2: Implement constructor that calls super() and sets Bird-specific
-     * fields
-     */
+    // M2: Implement constructor that calls super() and sets Bird-specific
     public Bird(String species, String nickname, String island, double weightKg, String healthStatus,
             double wingspanCm, boolean canFly) {
         // M2: Call super constructor
@@ -37,8 +30,7 @@ public class Bird extends Animal /* TODO M3: implements Trackable, Relocatable *
         return "Bird";
     }
 
-    // M2: Implement getDailyFoodCostTTD() - Daily food cost = 15.0 + weightKg *
-    // 50.0
+    // M2: Implement getDailyFoodCostTTD() - Daily food cost = 15.0 + weightKg * 50.0
     public double getDailyFoodCostTTD() {
         return 15.0 + getWeightKg() + 50.0;
     }
