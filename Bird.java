@@ -32,7 +32,7 @@ public class Bird extends Animal implements Trackable, Relocatable {
 
     // M2: Implement getDailyFoodCostTTD() - Daily food cost = 15.0 + weightKg * 50.0
     public double getDailyFoodCostTTD() {
-        return 15.0 + getWeightKg() + 50.0;
+        return 15.0 + getWeightKg() * 50.0;
     }
 
     // --- Trackable methods ---
